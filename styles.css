@@ -1,0 +1,24 @@
+#drum-circle {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+#noteLineContainer {
+  position: relative;
+  height: 20px;
+  margin: 20px 0;
+  background: #eee;
+  overflow: hidden;
+}
+#noteLine {
+  position: absolute;
+  left: 0;
+  width: 10px;
+  height: 20px;
+  background: #333;
+  transition: left 0.1s linear;
+}
+#beatTypes button {
+  margin: 5px;
+}
