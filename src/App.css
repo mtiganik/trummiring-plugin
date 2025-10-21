@@ -1,42 +1,79 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app {
+  font-family: system-ui, sans-serif;
+  padding: 20px;
+  color: #222;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.song {
+  background: #fafafa;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.song-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.song-header button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.card {
-  padding: 2em;
+.song-header button:hover {
+  background: #0056b3;
 }
 
-.read-the-docs {
-  color: #888;
+button.active {
+  background: #00b33c;
+}
+
+.sequence-graph {
+  position: relative;
+  margin-top: 10px;
+  height: 20px;
+  display: flex;
+  background: #e9e9e9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.beat {
+  flex: 1;
+  border-right: 1px solid #ddd;
+}
+
+.beat.beatChange{
+  border-right-color: black;
+  border-right-width: 5px;
+}
+
+.beat.bass {
+  background: #f56;
+}
+
+.beat.tone {
+  background: #00b33c;
+}
+
+
+.beat.rest {
+  background: #ccc;
+}
+
+.progress-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: black;
+  transition: left 0.05s linear;
 }
