@@ -1,11 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
 import './App.css'
+import React from 'react'
+import ReactDOM from "react-dom/client";
 import App from './App.tsx'
-// import Hello from './Hello.tsx'
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+
+function mount() {
+  const container = document.getElementById("trummiring-root");
+  if (!container) return;
+
+  const root = ReactDOM.createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mount);
+} else {
+  mount();
+}

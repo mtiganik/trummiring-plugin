@@ -1,19 +1,24 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-    build: {
-    outDir: 'dist',
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      input: path.resolve(__dirname, "index.html"),
+      // external: ["react", "react-dom"],
       output: {
+        format: "iife",
         globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
-        }
-      }
-    }
-  }
-})
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+        entryFileNames: `assets/index.js`,
+        assetFileNames: `assets/index.css`,
+      },
+    },
+  },
+});
