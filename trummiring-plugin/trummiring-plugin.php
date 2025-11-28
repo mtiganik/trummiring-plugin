@@ -3,7 +3,7 @@
  * Plugin Name: Trummiring Player
  * Plugin URI: https://github.com/mtiganik/trummiring-plugin
  * Description: Drum sequence player. Add [trummiring_app] anywhere you like so player will pop up
- * Version: 1.0.2
+ * Version: 1.2
  * Author: Mihkel Tiganik
  * Author URI: https://kontorirott.ee
  * Update URI: https://github.com/mtiganik/trummiring-plugin

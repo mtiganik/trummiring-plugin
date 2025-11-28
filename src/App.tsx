@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, type JSX } from "react";
+import djembeSvg from './assets/djembe.svg';
+
 
 // ------------------ TYPES ------------------
 interface SequenceData {
@@ -14,6 +16,7 @@ interface Song extends SequenceData {
   isPlaying: boolean;
   isLoop: boolean;
   startTime?: number;
+  playbackRate: number
 }
 
 // ------------------ CONFIG ------------------
@@ -72,6 +75,7 @@ export default function App(): JSX.Element {
             ...seq,
             isPlaying: false,
             isLoop: true,
+            playbackRate: 1.0
           };
         })
       );
@@ -87,8 +91,8 @@ export default function App(): JSX.Element {
       const song = songs[i];
       if (song?.isPlaying && ref) {
         const elapsed = now - (song.startTime ?? 0);
-        const progress = (elapsed % song.duration) / song.duration;
-        ref.style.left = `${progress * 100}%`;
+        const progress = (elapsed * song.playbackRate % song.duration) / song.duration;
+        ref.style.left = `${progress * 100 }%`;
       }
     });
     animationRef.current = requestAnimationFrame(animateProgress);
@@ -108,6 +112,7 @@ export default function App(): JSX.Element {
         if (i === index) {
           if (!song.isPlaying) {
             song.audio.currentTime = song.startOffset / 1000;
+            song.audio.playbackRate = song.playbackRate;
             song.audio.play();
             song.audio.loop = song.isLoop;
             song.startTime = performance.now();
@@ -124,13 +129,24 @@ export default function App(): JSX.Element {
 
   return (
     <div className="app">
-      <h1>🥁 Drum Circle Beats</h1>
+      <h1>
+        <img src={djembeSvg} alt="Djembe drum" style={{ width: '32px', height: '32px', verticalAlign: 'middle', marginRight: '8px' }} />
+ 
+        Drum Circle Beats</h1>
       {songs.map((song, i) => (
         <div key={i} className="song">
           <div className="song-header">
             <button onClick={() => togglePlay(i)}>
               {song.isPlaying ? "Stop" : "Play"}
             </button>
+            <label htmlFor="speed">Speed</label>
+            <select name="speed" id="speed" defaultValue={song.playbackRate} onChange={(e) => {song.playbackRate = Number(e.target.value)}}>
+              <option value={0.5}>0.5</option>
+              <option value={0.8}>0.8</option>
+              <option value={1.0}>1.0</option>
+              <option value={1.4}>1.4</option>
+              <option value={2.0}>2.0</option>
+            </select>
             <h3>{song.name}</h3>
           </div>
 
