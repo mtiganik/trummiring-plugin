@@ -18,9 +18,12 @@ interface Song extends SequenceData {
 
 // ------------------ CONFIG ------------------
 const SAMPLE_PATHS = [
+    "samples/3-3-2",
+    "samples/vivek-with-feetbangs",
+    "samples/vivek",
     "samples/clave", 
     "samples/one-to-six", 
-    "samples/three-beat",
+    "samples/three-beat"
 ];
 
 // ------------------ HELPERS ------------------
