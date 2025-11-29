@@ -10,20 +10,27 @@
  * GitHub Plugin URI: mtiganik/trummiring-plugin
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 function trummiring_enqueue_scripts()
 {
     $plugin_url  = plugin_dir_url(__FILE__);
     $plugin_path = plugin_dir_path(__FILE__);
 
-    wp_enqueue_script(
+    wp_register_script(
         'trummiring-app',
         $plugin_url . 'dist/assets/index.js',
         [],
         filemtime($plugin_path . 'dist/assets/index.js'),
         true
     );
+
+    // Inject plugin URL into React app
+    wp_localize_script('trummiring-app', 'trummiringPluginData', [
+        'pluginUrl' => $plugin_url . "dist"
+    ]);
+
+    wp_enqueue_script('trummiring-app');
 }
 add_action('wp_enqueue_scripts', 'trummiring_enqueue_scripts');
 

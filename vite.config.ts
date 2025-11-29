@@ -2,7 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ mode }) =>({
+    base: mode === 'production'
+    ? '/wp-content/plugins/trummiring-plugin/dist'
+    : '/',
+
   plugins: [react()],
   build: {
     outDir: "dist",
@@ -17,8 +21,8 @@ export default defineConfig({
           "react-dom": "ReactDOM",
         },
         entryFileNames: `assets/index.js`,
-        assetFileNames: `assets/index.css`,
+        assetFileNames: `assets/[name].[ext]`,
       },
     },
   },
-});
+}));

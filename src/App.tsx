@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState, type JSX } from "react";
-import djembeSvg from './assets/djembe.svg';
+import djembeSvg from '../public/djembe.svg';
 
 
+
+// const baseUrl = process.env.NODE_ENV === 'production' ? 'player/samples/...' : '/player/samples/...';
+const baseUrl = (window as any).trummiringPluginData?.pluginUrl ?? "";
+const drumIcon = new URL(djembeSvg, import.meta.url).href
 // ------------------ TYPES ------------------
 interface SequenceData {
   pattern: string;
@@ -59,11 +63,13 @@ export default function App(): JSX.Element {
   const progressRefs = useRef<(HTMLDivElement | null)[]>([]);
   const animationRef = useRef<number | null>(null);
 
+
   // ---- Load all songs on mount ----
   useEffect(() => {
     async function loadSongs() {
       const list: Song[] = await Promise.all(
-        SAMPLE_PATHS.map(async (path) => {
+        SAMPLE_PATHS.map(async (p) => {
+          const path = `${baseUrl}/${p}`
           const folderName = path.split("/").pop() || "";
           const audio = new Audio(`${path}/audio.m4a`);
           const seq = await loadSequence(path);
@@ -130,7 +136,7 @@ export default function App(): JSX.Element {
   return (
     <div className="app">
       <h1>
-        <img src={djembeSvg} alt="Djembe drum" style={{ width: '32px', height: '32px', verticalAlign: 'middle', marginRight: '8px' }} />
+        <img src={drumIcon} alt="Djembe drum" style={{ width: '32px', height: '32px', verticalAlign: 'middle', marginRight: '8px' }} />
  
         Drum Circle Beats</h1>
       {songs.map((song, i) => (
